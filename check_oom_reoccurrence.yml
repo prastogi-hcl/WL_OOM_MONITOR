@@ -1,3 +1,7 @@
 - name: check_oom_reoccurrence in logs
+  hosts: server
+  become: yes
+  vars_files:
+    - vars/main.yml
   roles:
     - check_oom_reoccurrenc
