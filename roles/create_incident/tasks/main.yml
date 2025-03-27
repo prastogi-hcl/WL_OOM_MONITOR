@@ -7,8 +7,6 @@
     state: new
     short_description: "WebLogic OutOfMemoryError detected"
     description: "OutOfMemoryError found in {{ latest_log_file.stdout }}. Please investigate."
-    urgency: "2"
-    impact: "2"
   register: snow_incident
   when: oom_errors.stdout | length > 0
 
