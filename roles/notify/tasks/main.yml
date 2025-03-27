@@ -28,16 +28,3 @@
   debug:
     msg: "OOM error detected! Proceeding with actions..."
   when: oom_errors.stdout | length > 0
-
-
-- name: Send System Health OK notification if no OOM is found
-  mail:
-    host: "{{ smtp_host }}"
-    port: "{{ smtp_port }}"
-    username: "{{ smtp_user }}"
-    password: "{{ smtp_pass }}"
-    to: "{{ email_recipient }}"
-    subject: "Heap Increased due to OOM on WebLogic"
-    body: "Heap increased to {{ new_heap_size_mb }}MB. Heap dump attached for analysis.Please investigate there might be memory leak inside JVM"
-      # when: oom_errors.stdout | length > 0
-
