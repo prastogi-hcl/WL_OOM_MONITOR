@@ -4,7 +4,7 @@
   vars_files:
     - vars/main.yml
 
-  #roles:
+  roles:
     - check_log
     - notify
     - create_incident
