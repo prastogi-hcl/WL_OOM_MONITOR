@@ -1,0 +1,3 @@
+- name: Increase Heap Size by 256MB
+  roles:
+    - increase_heap
