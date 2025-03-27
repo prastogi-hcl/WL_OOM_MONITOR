@@ -1,3 +1,12 @@
+- name: Read Incident Number from File
+  slurp:
+    src: "/tmp/incident_number.txt"
+  register: incident_number_data
+
+- name: Set Incident Number Fact
+  set_fact:
+    incident_number: "{{ incident_number_data['content'] | b64decode }}"
+
 - name: Validate incident number existence
   fail:
      msg: "No incident number found. Exiting playbook."
@@ -5,14 +14,13 @@
 
 - name: Close the ServiceNow Incident
   servicenow.itsm.incident:
-   instance:
-   host: "{{ servicenow_instance }}"
-   username: "{{ servicenow_user }}"
-   password: "{{ servicenow_password }}"
-   sys_id: "{{ incident_number }}"
-   state: "closed"
-   close_code: "Solved (Permanently)"
-   close_notes: "Issue resolved. WebLogic is running fine now."
+    instance:
+      host: "{{ servicenow_instance }}"
+      username: "{{ servicenow_user }}"
+      password: "{{ servicenow_password }}"
+    state: "closed"
+    close_code: "Solved (Permanently)"
+    close_notes: "Issue resolved. WebLogic is running fine now."
   register: incident_closure
 
 - name: Display Incident Closure Status
@@ -28,10 +36,14 @@
     to: "{{ email_recipient }}"
     subject: "WebLogic OutOfMemoryError Alert"
     body: "ServiceNow Incident {{ incident_number }} has been successfully closed."
-    when: incident_closure is succeeded
-    register: notification_status
+  when: incident_closure is succeeded
+  register: notification_status
+
+- name: Debug notification status
+  debug:
+    var: notification_status
 
 - name: Display Notification Status
   debug:
       msg: "Notification sent successfully."
-  when: notification_status.status == 200
+  when: notification_status.status | default(0) == 200
