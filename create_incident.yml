@@ -1,4 +1,8 @@
 ---
 - name: Create an Incident in ITSM
+  hosts: server
+  become: yes
+  vars_files:
+    - vars/main.yml
   roles:
     - create_incident
