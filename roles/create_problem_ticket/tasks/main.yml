@@ -1,0 +1,12 @@
+- name: Create a problem ticket in ServiceNow
+  servicenow.itsm.problem:
+    instance:
+      host: "{{ servicenow_instance }}"
+      username: "{{ servicenow_user }}"
+      password: "{{ servicenow_password }}"
+    state: new
+    short_description: "JVM Issue Detected - Heap Size Increased"
+    description: "There is something wrong inside your JVM, please fix ASAP. Heap size is increased by 256 MB as a temporary fix."
+    urgency: "2"
+    impact: "2"
+  when: oom_reoccurred

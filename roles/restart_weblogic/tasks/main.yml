@@ -1,0 +1,9 @@
+- name: Shutdown WebLogic Managed Server
+  shell: "{{ weblogic_home }}/oracle_common/common/bin/wlst.sh {{ wlst_script }}"
+  register: shutdown_output
+
+
+- name: Start WebLogic Managed Server
+  shell: >
+    nohup sudo -u {{ oracle_user }} {{ weblogic_start_script }} {{ managed_server }} t3://{{ admin_host }}:{{ admin_port }} > /tmp/weblogic_start.log 2>&1 &
+  register: start_output

@@ -1,0 +1,37 @@
+- name: Validate incident number existence
+  fail:
+     msg: "No incident number found. Exiting playbook."
+  when: incident_number is not defined or incident_number | length == 0
+
+- name: Close the ServiceNow Incident
+  servicenow.itsm.incident:
+   instance:
+   host: "{{ servicenow_instance }}"
+   username: "{{ servicenow_user }}"
+   password: "{{ servicenow_password }}"
+   sys_id: "{{ incident_number }}"
+   state: "closed"
+   close_code: "Solved (Permanently)"
+   close_notes: "Issue resolved. WebLogic is running fine now."
+  register: incident_closure
+
+- name: Display Incident Closure Status
+  debug:
+     msg: "Incident {{ incident_number }} has been successfully closed."
+
+- name: Send OOM Alert Email
+  mail:
+    host: "{{ smtp_host }}"
+    port: "{{ smtp_port }}"
+    username: "{{ smtp_user }}"
+    password: "{{ smtp_pass }}"
+    to: "{{ email_recipient }}"
+    subject: "WebLogic OutOfMemoryError Alert"
+    body: "ServiceNow Incident {{ incident_number }} has been successfully closed."
+    when: incident_closure is succeeded
+    register: notification_status
+
+- name: Display Notification Status
+  debug:
+      msg: "Notification sent successfully."
+  when: notification_status.status == 200

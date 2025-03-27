@@ -1,0 +1,12 @@
+- name: Get Managed Server PID
+  shell: "ps -ef | grep '[j]ava.*weblogic.Name={{ managed_server }}' | awk '{print $2}'"
+  register: managed_server_pid
+  changed_when: false
+
+- name: Capture Heap Dump
+  shell: "sudo -u {{ oracle_user }} /usr/bin/jmap -dump:format=b,file=/tmp/heapdump_{{ managed_server_pid.stdout }}.hprof {{ managed_server_pid.stdout }}"
+  register: heap_dump_output
+
+- name: Debug Heap Dump Result
+  debug:
+    var: heap_dump_output

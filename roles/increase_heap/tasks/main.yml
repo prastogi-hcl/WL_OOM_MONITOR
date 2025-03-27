@@ -1,0 +1,126 @@
+- name: Get today's date
+  command: date +%Y-%m-%d
+  register: todays_date
+  changed_when: false
+
+- name: Backup entire domain directory before changes
+  archive:
+     path: "{{ domain_home }}"
+     dest: "/tmp/custom_domain_backup_{{ todays_date.stdout }}.tar.gz"
+     format: gz
+
+
+- name: Copy WLST script to remote server
+  copy:
+    src: /home/oracle/cal_heap_size.py
+    dest: /home/oracle/cal_heap_size.py
+    owner: oracle
+    group: oracle
+    mode: '0755'
+
+- name: Copy WebLogic domain properties file
+  copy:
+    src: /home/oracle/domain_properties.py_Server-1
+    dest: /home/oracle/domain_properties.py_Server-1
+    owner: oracle
+    group: oracle
+    mode: '0644'
+
+- name: Run WLST script
+  command:  "{{ weblogic_home }}/oracle_common/common/bin/wlst.sh {{ wlst_heap_script }}"
+  register: heap_output
+
+
+- name: Debug heap output
+  debug:
+    msg: "{{ heap_output.stdout }}"
+
+
+- name: Extract heap size
+  set_fact:
+    current_heap_size: "{{ heap_output.stdout | regex_search('HeapSizeCurrent.*?([0-9]+\\.?[0-9]*)', '\\1') | first | int | default('0') }}"
+
+    
+
+- name: Use extracted heap size
+  shell: "echo Current heap size is {{ current_heap_size }} MB"
+
+
+       
+- name: Shutdown WebLogic Managed Server
+  shell: "{{ weblogic_home }}/oracle_common/common/bin/wlst.sh {{ wlst_script }}"
+  register: shutdown_output
+  ignore_errors: true
+
+
+- name: Backup the original setUserOverrides.sh
+  copy:
+    src: "{{ script_path }}"
+    dest: "{{ script_path }}.bak_{{ todays_date.stdout }}"
+    remote_src: yes
+
+
+- name: Check total available memory
+  shell: free -m | awk '/^Mem:/{print $7}'
+  register: available_memory
+
+- name: Capture current heap memory arguments
+  shell: "grep 'Xmx' {{ script_path }}"
+  register: current_heap
+
+
+
+- name: Extract current Xmx and Xms heap size (MB)
+  set_fact:
+    xmx_size_mb: "{{ current_heap.stdout | regex_search('Xmx(\\d+)', '\\1') | first | default(0, true) | int }}"
+    xms_size_mb: "{{ current_heap.stdout | regex_search('Xms(\\d+)', '\\1') | first | default(0, true) | int }}"
+
+- name: Debug extracted Xmx and Xms values
+  debug:
+    msg: "Extracted Xmx: {{ xmx_size_mb }} MB, Xms: {{ xms_size_mb }} MB"
+
+- name: Increase heap by 256MB if OOM exists
+  set_fact:
+    new_xmx_size_mb: "{{ xmx_size_mb | int + 256 }}"
+    new_xms_size_mb: "{{ xms_size_mb | int + 256 }}"
+
+- name: Update heap size in setUserOverrides.sh
+  replace:
+    path: "{{ script_path }}"
+    regexp: 'Xmx{{ xmx_size_mb }}m'
+    replace: 'Xmx{{ new_xmx_size_mb }}m'
+
+- name: Update Xms heap size in setUserOverrides.sh
+  replace:
+    path: "{{ script_path }}"
+    regexp: 'Xms{{ xms_size_mb }}m'
+    replace: 'Xms{{ new_xms_size_mb }}m'
+
+- name: Verify the updated heap settings
+  command: "grep 'USER_MEM_ARGS' {{ script_path }}"
+  register: heap_config
+  changed_when: false
+
+- name: Display Updated Heap Configuration
+  debug:
+    msg: "{{ heap_config.stdout_lines }}"
+
+
+
+- name: Start WebLogic Managed Server
+  shell: >
+    nohup sudo -u {{ oracle_user }} {{ weblogic_start_script }} {{ managed_server }} t3://{{ admin_host }}:{{ admin_port }} > /tmp/weblogic_start.log 2>&1 &
+  register: start_output
+
+- name: Get WebLogic process details
+  shell: "ps -ef | grep Server-1 | grep -v grep"
+  register: weblogic_process
+
+- name: Extract Memory Parameters
+  set_fact:
+     xms: "{{ weblogic_process.stdout | regex_search('-Xms(\\d+m)', '\\1') | first }}"
+     xmx: "{{ weblogic_process.stdout | regex_search('-Xmx(\\d+m)', '\\1') | first }}"
+
+- name: Display Memory Parameters
+  debug:
+    msg: "Xms: {{ xms }}, Xmx: {{ xmx }}"

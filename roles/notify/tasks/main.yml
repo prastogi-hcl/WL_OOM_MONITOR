@@ -1,0 +1,43 @@
+- name: Send OOM Alert Email
+  mail:
+    host: "{{ smtp_host }}"
+    port: "{{ smtp_port }}"
+    username: "{{ smtp_user }}"
+    password: "{{ smtp_pass }}"
+    to: "{{ email_recipient }}"
+    subject: "WebLogic OutOfMemoryError Alert"
+    body: "{{ lookup('template', 'email_template.j2') }}"
+  when: oom_errors.stdout | length > 0
+
+- name: Send System Health OK notification if no OOM is found
+  mail:
+    host: "{{ smtp_host }}"
+    port: "{{ smtp_port }}"
+    username: "{{ smtp_user }}"
+    password: "{{ smtp_pass }}"
+    to: "{{ email_recipient }}"
+    subject: "System Health OK"
+    body: "No OutOfMemoryError found in logs. WebLogic is running fine."
+  when: oom_errors.stdout | length == 0
+
+- name: Exit playbook since no OOM error is found
+  meta: end_play
+  when: oom_errors.stdout | length == 0
+
+- name: Continue processing if OOM found
+  debug:
+    msg: "OOM error detected! Proceeding with actions..."
+  when: oom_errors.stdout | length > 0
+
+
+- name: Send System Health OK notification if no OOM is found
+  mail:
+    host: "{{ smtp_host }}"
+    port: "{{ smtp_port }}"
+    username: "{{ smtp_user }}"
+    password: "{{ smtp_pass }}"
+    to: "{{ email_recipient }}"
+    subject: "Heap Increased due to OOM on WebLogic"
+    body: "Heap increased to {{ new_heap_size_mb }}MB. Heap dump attached for analysis.Please investigate there might be memory leak inside JVM"
+      # when: oom_errors.stdout | length > 0
+

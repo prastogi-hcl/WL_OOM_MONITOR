@@ -1,0 +1,37 @@
+---
+# vars file for wl_proactive_monitoring
+# WebLogic Paths
+domain_home: "/oracle/fmw12c/config/Domains/custom_domain"
+weblogic_log_path: "/oracle/fmw12c/config/Domains/custom_domain/servers/Server-1/logs"
+weblogic_log_file: "Server-1.log"
+weblogic_home: "/oracle/fmw12c/product/Oracle_Home"
+domain_backup_path: "/backup/domains"
+
+# WebLogic Server Details
+managed_server: "Server-1"
+admin_host: "chnsdiubuntu03"
+admin_port: "7001"
+
+# JVM Settings
+jvm_options_file: "/oracle/fmw12c/config/Domains/custom_domain/bin/setDomainEnv.sh"
+
+# User Credentials
+oracle_user: "oracle"
+
+# ServiceNow Credentials
+servicenow_instance: "https://dev266258.service-now.com"
+servicenow_user: "aes.creator"
+servicenow_password: "kj7XJNmN9=%x"
+
+# Email Configuration
+smtp_host: "sandbox.smtp.mailtrap.io"
+smtp_port: 587
+smtp_user: "097d96eba311b5"
+smtp_pass: "59ec580ba017b9"
+email_recipient: "parikshit.r@hcltech.com"
+
+# WebLogic Startup Script
+weblogic_start_script: "/oracle/fmw12c/config/Domains/custom_domain/bin/startManagedWebLogic.sh"
+
+# WLST Scripts
+wlst_script: "/home/oracle/shutdown_ms1.py"

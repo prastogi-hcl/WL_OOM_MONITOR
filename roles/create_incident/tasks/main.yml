@@ -1,0 +1,23 @@
+- name: Create an incident in ServiceNow
+  servicenow.itsm.incident:
+    instance:
+       host: "{{ servicenow_instance }}"
+       username: "{{ servicenow_user }}"
+       password: "{{ servicenow_password }}"
+    state: new
+    short_description: "WebLogic OutOfMemoryError detected"
+    description: "OutOfMemoryError found in {{ latest_log_file.stdout }}. Please investigate."
+    urgency: "2"
+    impact: "2"
+  register: snow_incident
+  when: oom_errors.stdout | length > 0
+
+- name: Display ServiceNow Incident Details
+  debug:
+     msg: "Incident created: {{ snow_incident.record.task_effective_number | default('Unknown') }}"
+
+
+- name: Store ServiceNow Incident Number
+  set_fact:
+      incident_number: "{{ snow_incident.record.task_effective_number }}"
+  ignore_errors: yes  # Prevents playbook failure if no error is foundignore_errors: yes

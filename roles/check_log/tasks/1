@@ -1,0 +1,8 @@
+- name: Find the latest WebLogic log file
+  shell: "ls -1t {{ weblogic_log_path }}/{{ weblogic_log_file }} | head -n 1"
+  register: latest_log_file
+
+- name: Search for OutOfMemoryError in latest log file
+  shell: "grep -i 'OutOfMemoryError' {{ latest_log_file.stdout }}"
+  register: oom_errors
+  ignore_errors: yes  # Prevents playbook failure if no error is found
