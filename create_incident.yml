@@ -1,0 +1,4 @@
+---
+- name: Create an Incident in ITSM
+  roles:
+    - create_incident
