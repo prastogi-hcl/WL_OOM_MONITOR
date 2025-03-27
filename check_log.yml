@@ -1,0 +1,4 @@
+---
+- name: Check WebLogic Logs for OOM
+  roles:
+    - check_log
