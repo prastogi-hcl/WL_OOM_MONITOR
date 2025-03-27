@@ -1,4 +1,6 @@
 ---
 - name: Check WebLogic Logs for OOM
+  hosts: server
+  become: yes
   roles:
     - check_log
