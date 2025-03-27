@@ -21,3 +21,8 @@
   set_fact:
       incident_number: "{{ snow_incident.record.task_effective_number }}"
   ignore_errors: yes  # Prevents playbook failure if no error is foundignore_errors: yes
+
+- name: Save Incident Number to a File
+  copy:
+    content: "{{ snow_incident.record.task_effective_number }}"
+    dest: "/tmp/incident_number.txt"
