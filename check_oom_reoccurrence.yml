@@ -1,0 +1,3 @@
+- name: check_oom_reoccurrence in logs
+  roles:
+    - check_oom_reoccurrenc
