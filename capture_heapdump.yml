@@ -1,0 +1,4 @@
+---
+- name: Capture Heapdump
+  roles:
+    - capture_heapdump
