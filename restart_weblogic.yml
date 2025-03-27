@@ -1,0 +1,4 @@
+---
+- name: Restart Weblogic Services
+  roles:
+    - restart_weblogic
