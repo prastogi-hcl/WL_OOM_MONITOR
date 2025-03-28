@@ -10,3 +10,8 @@
 - name: Debug Heap Dump Result
   debug:
     var: heap_dump_output
+
+- name: Save Heap Dump Path to File
+  copy:
+    content: "{{heap_dump_output.stdout }}"
+    dest: "/tmp/heapdump_path.txt
