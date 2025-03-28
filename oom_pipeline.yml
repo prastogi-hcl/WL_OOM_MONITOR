@@ -1,36 +1,65 @@
 - name: OOM Automation Pipeline
   hosts: server
   gather_facts: no
+  become: yes
+  vars_files:
+    - vars/main.yml
   tasks:
     - name: Check OOM Logs
       include_role:
         name: check_oom_logs
+        
+    - name: Wait for 60 seconds before next task
+      pause:
+        seconds: 60
 
     - name: Notify Stakeholders
       include_role:
         name: notify_stakeholders
-
+        
+    - name: Wait for 60 seconds before next task
+      pause:
+        seconds: 60
+  
     - name: Create Incident
       include_role:
         name: create_incident
+        
+    - name: Wait for 60 seconds before next task
+      pause:
+        seconds: 60
 
     - name: Restart Server
       include_role:
         name: restart_server
+    - name: Wait for 60 seconds before next task
+      pause:
+        seconds: 60
 
     - name: Check OOM Reoccurrence
       include_role:
         name: check_oom_reoccurrence
+        
+    - name: Wait for 60 seconds before next task
+      pause:
+        seconds: 60
 
     - name: Increase Memory
       include_role:
         name: increase_memory
 
+    - name: Wait for 60 seconds before next task
+      pause:
+        seconds: 60
+
     - name: Restart Server
       include_role:
         name: restart_server
-  
 
-   - name: Close Incident
+    - name: Wait for 60 seconds before next task
+      pause:
+        seconds: 60  
+
+    - name: Close Incident
       include_role:
         name: close_incident
