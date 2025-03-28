@@ -26,8 +26,8 @@ servicenow_password: "@ZVXdp%66Fhk"
 # Email Configuration
 smtp_host: "sandbox.smtp.mailtrap.io"
 smtp_port: 587
-smtp_user: "097d96eba311b5"
-smtp_pass: "59ec580ba017b9"
+smtp_user: "cc06f2bd6bfa83"
+smtp_pass: "f4c80eadc7d0b1"
 email_recipient: "parikshit.r@hcltech.com"
 
 # WebLogic Startup Script
