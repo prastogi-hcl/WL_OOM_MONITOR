@@ -7,16 +7,3 @@
     - name: Call Check_log dynamically
       include_role:
         name: check_log
- 
-  #roles:
-    - check_log
-    - notify
-    - create_incident
-    - capture_heapdump
-    - restart_weblogic
-    - check_oom_reoccurence
-    - notify
-    - increase_heap
-    - notify
-    - create_problem_ticket
-    - close_incident
