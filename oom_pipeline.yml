@@ -7,7 +7,7 @@
   tasks:
     - name: Check OOM Logs
       include_role:
-        name: check_oom_logs
+        name: check_log
         
     - name: Wait for 60 seconds before next task
       pause:
@@ -15,7 +15,7 @@
 
     - name: Notify Stakeholders
       include_role:
-        name: notify_stakeholders
+        name: notify
         
     - name: Wait for 60 seconds before next task
       pause:
@@ -31,7 +31,8 @@
 
     - name: Restart Server
       include_role:
-        name: restart_server
+        name: restart_weblogic
+        
     - name: Wait for 60 seconds before next task
       pause:
         seconds: 60
@@ -46,7 +47,7 @@
 
     - name: Increase Memory
       include_role:
-        name: increase_memory
+        name: increase_heap
 
     - name: Wait for 60 seconds before next task
       pause:
@@ -54,7 +55,7 @@
 
     - name: Restart Server
       include_role:
-        name: restart_server
+        name: restart_weblogic
 
     - name: Wait for 60 seconds before next task
       pause:
