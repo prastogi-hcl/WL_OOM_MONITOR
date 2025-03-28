@@ -6,3 +6,8 @@
   shell: "awk -v d=\"$(date '+%b %d, %Y %H:%M:%S')\" '$0 >= d && /OutOfMemoryError/' {{ latest_log_file.stdout }}"
   register: oom_errors
   changed_when: false
+  
+- name: Save oom_errors to File
+  copy:
+    content: "{{ oom_errors.stdout }}"
+    dest: "/tmp/oom_errors.txt"
