@@ -5,7 +5,7 @@
     - vars/main.yml
   tasks:
     - name: Call Check_log dynamically
-     include_role:
+      include_role:
         name: check_log
  
   #roles:
