@@ -19,9 +19,9 @@ jvm_options_file: "/oracle/fmw12c/config/Domains/custom_domain/bin/setDomainEnv.
 oracle_user: "oracle"
 
 # ServiceNow Credentials
-servicenow_instance: "https://dev195141.service-now.com"
+servicenow_instance: "https://dev280323.service-now.com"
 servicenow_user: "aes.creator"
-servicenow_password: "PeSv5Tp!%9Zc"
+servicenow_password: "@ZVXdp%66Fhk"
 
 # Email Configuration
 smtp_host: "sandbox.smtp.mailtrap.io"
