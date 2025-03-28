@@ -31,9 +31,9 @@
 
 - name: Exit playbook since no OOM error is found
   meta: end_play
-  when: oom_errors.stdout | length == 0
+  when: oom_errors_file.content | length == 0
 
 - name: Continue processing if OOM found
   debug:
     msg: "OOM error detected! Proceeding with actions..."
-  when: oom_errors.stdout | length > 0
+  when: oom_errors_file.content | length > 0
