@@ -16,3 +16,11 @@
   copy:
     content: "{{ latest_log_file.stdout }}"
     dest: "/tmp/latest_log_file.txt"
+
+- name: Wait for 30 seconds before next task
+  pause:
+     seconds: 30
+
+- name: Notify Stakeholders
+      include_role:
+        name: notify
