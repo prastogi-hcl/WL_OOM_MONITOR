@@ -1,0 +1,36 @@
+- name: OOM Automation Pipeline
+  hosts: server
+  gather_facts: no
+  tasks:
+    - name: Check OOM Logs
+      include_role:
+        name: check_oom_logs
+
+    - name: Notify Stakeholders
+      include_role:
+        name: notify_stakeholders
+
+    - name: Create Incident
+      include_role:
+        name: create_incident
+
+    - name: Restart Server
+      include_role:
+        name: restart_server
+
+    - name: Check OOM Reoccurrence
+      include_role:
+        name: check_oom_reoccurrence
+
+    - name: Increase Memory
+      include_role:
+        name: increase_memory
+
+    - name: Restart Server
+      include_role:
+        name: restart_server
+  
+
+   - name: Close Incident
+      include_role:
+        name: close_incident
