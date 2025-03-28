@@ -9,7 +9,6 @@
      dest: "/tmp/custom_domain_backup_{{ todays_date.stdout }}.tar.gz"
      format: gz
 
-
 - name: Copy WLST script to remote server
   copy:
     src: /home/oracle/cal_heap_size.py
@@ -30,35 +29,27 @@
   command:  "{{ weblogic_home }}/oracle_common/common/bin/wlst.sh {{ wlst_heap_script }}"
   register: heap_output
 
-
 - name: Debug heap output
   debug:
     msg: "{{ heap_output.stdout }}"
-
 
 - name: Extract heap size
   set_fact:
     current_heap_size: "{{ heap_output.stdout | regex_search('HeapSizeCurrent.*?([0-9]+\\.?[0-9]*)', '\\1') | first | int | default('0') }}"
 
-    
-
 - name: Use extracted heap size
   shell: "echo Current heap size is {{ current_heap_size }} MB"
-
-
-       
+    
 - name: Shutdown WebLogic Managed Server
   shell: "{{ weblogic_home }}/oracle_common/common/bin/wlst.sh {{ wlst_script }}"
   register: shutdown_output
   ignore_errors: true
-
 
 - name: Backup the original setUserOverrides.sh
   copy:
     src: "{{ script_path }}"
     dest: "{{ script_path }}.bak_{{ todays_date.stdout }}"
     remote_src: yes
-
 
 - name: Check total available memory
   shell: free -m | awk '/^Mem:/{print $7}'
@@ -67,8 +58,6 @@
 - name: Capture current heap memory arguments
   shell: "grep 'Xmx' {{ script_path }}"
   register: current_heap
-
-
 
 - name: Extract current Xmx and Xms heap size (MB)
   set_fact:
@@ -104,8 +93,6 @@
 - name: Display Updated Heap Configuration
   debug:
     msg: "{{ heap_config.stdout_lines }}"
-
-
 
 - name: Start WebLogic Managed Server
   shell: >
