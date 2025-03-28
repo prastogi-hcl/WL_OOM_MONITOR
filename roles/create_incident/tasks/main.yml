@@ -9,7 +9,7 @@
 
 - name: Read latest_log from File
   slurp:
-    src: "/tmp/latest_log.txt"
+    src: "/tmp/latest_log_file.txt"
   register: latest_log_file
 
 - name: Use latest_log Path
