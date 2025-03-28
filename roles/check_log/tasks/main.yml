@@ -20,7 +20,3 @@
 - name: Wait for 30 seconds before next task
   pause:
      seconds: 30
-
-- name: Notify Stakeholders
-  include_role:
-        name: notify
