@@ -1,3 +1,12 @@
+- name: Read oom_errors from File
+  slurp:
+    src: "/tmp/oom_errors.txt"
+  register: oom_errors_file
+
+- name: Use oom_errors Path
+  debug:
+    msg: "oom_errors Path: {{ oom_errors_file.content | b64decode }}"
+
 - name: Send OOM Alert Email
   mail:
     host: "{{ smtp_host }}"
