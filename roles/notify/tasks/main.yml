@@ -16,7 +16,7 @@
     to: "{{ email_recipient }}"
     subject: "WebLogic OutOfMemoryError Alert"
     body: "{{ lookup('template', 'email_template.j2') }}"
-  when: oom_errors_file.stdout | length > 0
+  when: oom_errors_file.content | length > 0
 
 - name: Send System Health OK notification if no OOM is found
   mail:
@@ -27,7 +27,7 @@
     to: "{{ email_recipient }}"
     subject: "System Health OK"
     body: "No OutOfMemoryError found in logs. WebLogic is running fine."
-  when: oom_errors.stdout | length == 0
+  when: oom_errors_file.content | length == 0
 
 - name: Exit playbook since no OOM error is found
   meta: end_play
