@@ -22,5 +22,5 @@
      seconds: 30
 
 - name: Notify Stakeholders
-      include_role:
+  include_role:
         name: notify
