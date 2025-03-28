@@ -2,40 +2,4 @@
   hosts: server
   become: yes
   vars_files:
-    - vars/main.yml
-  tasks:
-    - name: Call Check_log dynamically
-      include_role:
-        name: check_log
-        
-    - name: Call Notify dynamically
-      include_role:
-        name: notify
-
-    - name: Create Incident dynamically
-      include_role:
-        name: create_incident
-
-    - name: Capture Heap Dump dynamically
-      include_role:
-        name: capture_heapdump
-
-    - name: Restart WebLogic dynamically
-      include_role:
-        name: restart_weblogic
-
-    - name: Check OOM Reoccurrence dynamically
-      include_role:
-        name: check_oom_reoccurrence
-
-    - name: Increase Heap dynamically
-      include_role:
-        name: increase_heap
-
-    - name: Create Problem Ticket dynamically
-      include_role:
-        name: create_problem_ticket
-
-    - name: Close Incident dynamically
-      include_role:
-        name: close_incident
+    - vars/main.yml 
