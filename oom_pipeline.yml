@@ -3,8 +3,4 @@
   gather_facts: no
   become: yes
   vars_files:
-    - vars/main.yml
-  tasks:
-    - name: Check OOM Logs
-      include_role:
-        name: check_log 
+    - vars/main.yml 
