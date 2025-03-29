@@ -1,5 +1,7 @@
-- name: Check WebLogic Logs for OOM
-  tasks: 
-    - name: Show Success Message
-      debug: 
-         msg: "Check Log Completed Successfully.Please process notify"
+- name: Notify on Generation of OOM
+  hosts: server
+  become: yes
+  vars_files:
+    - vars/main.yml
+  roles:
+    - check_log_completion
