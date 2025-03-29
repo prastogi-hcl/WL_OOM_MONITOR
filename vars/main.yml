@@ -36,4 +36,4 @@ weblogic_start_script: "/oracle/fmw12c/config/Domains/custom_domain/bin/startMan
 # WLST Scripts
 wlst_script: "/home/oracle/shutdown_ms1.py"
 wlst_heap_script:  "/home/oracle/cal_heap_size.py"
-sleep_interval : 30
+sleep_interval : 60
