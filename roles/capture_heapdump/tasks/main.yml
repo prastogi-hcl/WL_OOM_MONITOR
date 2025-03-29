@@ -4,7 +4,7 @@
   changed_when: false
 
 - name: Capture Heap Dump
-  shell: "sudo -u {{ oracle_user }} /usr/bin/jmap -dump:format=b,file=/tmp/heapdump_{{ managed_server_pid.stdout }}.hprof {{ managed_server_pid.stdout }}"
+  shell: "sudo -u {{ oracle_user }} /usr/lib/jvm/jdk1.8.0_202/bin/jmap -dump:format=b,file=/tmp/heapdump_{{ managed_server_pid.stdout }}.hprof {{ managed_server_pid.stdout }}"
   register: heap_dump_output
 
 - name: Debug Heap Dump Result
