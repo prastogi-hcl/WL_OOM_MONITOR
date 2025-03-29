@@ -2,10 +2,7 @@
   shell: echo "Checking OOM Error in Logs"
   register: check_log_result
 
-- name: Wait before next task
-  ansible.builtin.pause:
-    seconds: 30
-    
+  
 - name: Find the latest WebLogic log file
   shell: "ls -1t {{ weblogic_log_path }}/{{ weblogic_log_file }} | head -n 1"
   register: latest_log_file
@@ -28,11 +25,3 @@
 - name: Notify on Chec_log Completion
   debug:
      msg: "Check_Log completed. Proceeding to Notify."
-
-- name: Check OOM Logs completion 
-  include_role: 
-          name: notify
-
-- name: Wait before next task
-  ansible.builtin.pause:
-                seconds: 10   
