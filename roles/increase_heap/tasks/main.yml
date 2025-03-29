@@ -100,7 +100,7 @@
   register: start_output
 
 - name: Get WebLogic process details
-  shell: "ps -ef | grep Server-1 | grep -v grep"
+  shell: "ps -ef | grep {{ managed_server }} | grep -v grep"
   register: weblogic_process
 
 - name: Extract Memory Parameters
