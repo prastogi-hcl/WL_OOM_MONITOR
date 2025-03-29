@@ -1,3 +1,7 @@
+- name: Wait before next task
+  ansible.builtin.pause:
+    seconds: 30
+    
 - name: Find the latest WebLogic log file
   shell: "ls -1t {{ weblogic_log_path }}/{{ weblogic_log_file }} | head -n 1"
   register: latest_log_file
