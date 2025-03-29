@@ -1,9 +1,6 @@
 ---
 - name: Check WebLogic Logs for OOM
-  hosts: server
-  become: yes
-  vars_files:
-    - vars/main.yml
+  hosts: localhost
   tasks: 
     - name: Show Success Message
       debug: 
