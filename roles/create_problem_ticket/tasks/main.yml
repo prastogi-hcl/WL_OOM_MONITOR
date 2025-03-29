@@ -1,3 +1,7 @@
+- name: Wait before next task
+  ansible.builtin.pause:
+    seconds: 30
+
 - name: Create a problem ticket in ServiceNow
   servicenow.itsm.problem:
     instance:
