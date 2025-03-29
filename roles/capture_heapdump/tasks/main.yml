@@ -1,6 +1,6 @@
 - name: Wait before next task
   ansible.builtin.pause:
-    seconds: 120
+    seconds: 200
 
 - name: Get Managed Server PID
   shell: "ps -ef | grep '[j]ava.*weblogic.Name={{ managed_server }}' | awk '{print $2}'"
