@@ -1,6 +1,6 @@
 - name: Wait before next task
   ansible.builtin.pause:
-    seconds: 360
+    seconds: 150
 
 - name: Get today's date
   command: date +%Y-%m-%d
