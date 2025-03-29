@@ -16,6 +16,3 @@
   copy:
     content: "{{ latest_log_file.stdout }}"
     dest: "/tmp/latest_log_file.txt"
-
-- name: sleep for a specified interval
-  command: sleep '{{ sleep_interval }}'
