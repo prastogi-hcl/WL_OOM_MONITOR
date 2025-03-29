@@ -1,4 +1,4 @@
-- name: Step 1 - Check_Log
+c- name: Step 1 - Check_Log
   shell: echo "Checking OOM Error in Logs"
   register: check_log_result
 
@@ -31,7 +31,7 @@
 
 - name: Check OOM Logs completion 
   include_role: 
-          name: Check_log_completion
+          name: check_log_completion
 
 - name: Wait before next task
   ansible.builtin.pause:
