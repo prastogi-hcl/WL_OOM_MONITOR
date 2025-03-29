@@ -6,7 +6,7 @@
     - vars/main.yml
   tasks:
      - name: Check OOM Logs completion 
-      import_tasks: Check_log_completion.yml
+       import_tasks: Check_log_completion.yml
 
     - name: Wait before next task
       ansible.builtin.pause:
