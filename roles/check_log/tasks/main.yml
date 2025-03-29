@@ -31,7 +31,7 @@
 
 - name: Check OOM Logs completion 
   include_role: 
-          name: check_log_completion
+          name: notify
 
 - name: Wait before next task
   ansible.builtin.pause:
