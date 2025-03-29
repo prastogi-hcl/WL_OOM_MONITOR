@@ -1,6 +1,6 @@
 - name: Wait before next task
   ansible.builtin.pause:
-    seconds: 30
+    seconds: 150
     
 - name: Shutdown WebLogic Managed Server
   shell: "{{ weblogic_home }}/oracle_common/common/bin/wlst.sh {{ wlst_script }}"
