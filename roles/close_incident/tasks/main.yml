@@ -1,3 +1,7 @@
+- name: Wait before next task
+  ansible.builtin.pause:
+    seconds: 30
+
 - name: Read Incident Number from File
   slurp:
     src: "/tmp/incident_number.txt"
