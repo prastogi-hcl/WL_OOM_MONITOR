@@ -1,3 +1,7 @@
+- name: Step 1 - Check_Log
+  shell: echo "Checking OOM Error in Logs"
+  register: check_log_result
+
 - name: Wait before next task
   ansible.builtin.pause:
     seconds: 30
@@ -20,3 +24,7 @@
   copy:
     content: "{{ latest_log_file.stdout }}"
     dest: "/tmp/latest_log_file.txt"
+
+- name: Notify on Chec_log Completion
+  debug:
+     msg: "Check_Log completed. Proceeding to Notify."
