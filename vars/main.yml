@@ -8,7 +8,7 @@ weblogic_home: "/oracle/fmw12c/product/Oracle_Home"
 domain_backup_path: "/backup/domains"
 script_path: "/oracle/fmw12c/config/Domains/custom_domain/bin/setUserOverrides.sh"
 # WebLogic Server Details
-managed_server: "Server-1"
+managed_server: "Server1"
 admin_host: "chnsdiubuntu03"
 admin_port: "7001"
 
