@@ -2,8 +2,8 @@
 # vars file for wl_proactive_monitoring
 # WebLogic Paths
 domain_home: "/oracle/fmw12c/config/Domains/custom_domain"
-weblogic_log_path: "/oracle/fmw12c/config/Domains/custom_domain/servers/Server-1/logs"
-weblogic_log_file: "Server-1.log"
+weblogic_log_path: "/oracle/fmw12c/config/Domains/custom_domain/servers/Server1/logs"
+weblogic_log_file: "Server1.log"
 weblogic_home: "/oracle/fmw12c/product/Oracle_Home"
 domain_backup_path: "/backup/domains"
 script_path: "/oracle/fmw12c/config/Domains/custom_domain/bin/setUserOverrides.sh"
