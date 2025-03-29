@@ -1,6 +1,5 @@
----
- - name: Check WebLogic Logs for OOM
-   tasks: 
+- name: Check WebLogic Logs for OOM
+  tasks: 
     - name: Show Success Message
       debug: 
          msg: "Check Log Completed Successfully.Please process notify"
