@@ -6,9 +6,9 @@
   register: latest_log_file
 
 - name: Search for OutOfMemoryError in latest log file
-  shell: "awk -v d=\"$(date '+%b %d, %Y %H:%M:%S')\" '$0 >= d && /OutOfMemoryError/ | BEA-000802|BEA-000337|BEA-000627)' {{ latest_log_file.stdout }}"
+  shell: "awk -v d="$(date '+%b %d, %Y %H:%M:%S')" ' /OutOfMemoryError|BEA-000802|BEA-000337|BEA-000627/ { print d, $0 } ' {{ latest_log_file.stdout }}"
   register: oom_errors
-  changed_when: false
+  ignore_errors: yes
 
 - name: Print OutOfMemoryError logs on screen
   debug:
