@@ -1,6 +1,5 @@
 ---
  - name: Check WebLogic Logs for OOM
-   hosts: localhost
    tasks: 
     - name: Show Success Message
       debug: 
