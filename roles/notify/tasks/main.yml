@@ -1,6 +1,9 @@
+- name: sleep for a specified interval
+  command: sleep '{{ sleep_interval }}'
+
 - name: Wait before next task
   ansible.builtin.pause:
-     seconds: 10
+     seconds: 30
 
 - name: Read oom_errors from File
   slurp:
