@@ -30,7 +30,8 @@
      msg: "Check_Log completed. Proceeding to Notify."
 
 - name: Check OOM Logs completion 
-  include_tasks: Check_log_completion.yml
+  include_role: 
+          name: Check_log_completion
 
 - name: Wait before next task
   ansible.builtin.pause:
