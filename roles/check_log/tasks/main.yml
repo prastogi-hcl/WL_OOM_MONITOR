@@ -1,4 +1,4 @@
-c- name: Step 1 - Check_Log
+- name: Step 1 - Check_Log
   shell: echo "Checking OOM Error in Logs"
   register: check_log_result
 
