@@ -3,22 +3,4 @@
   gather_facts: no
   become: yes
   vars_files:
-    - vars/main.yml 
-  tasks:
-    - name: Step 1 - Execute Check_Log
-      shell: echo "Running Check OOM Error in Logs"
-      register: check_log_result
-
-    - name: Notify on Check Log Completion
-      debug:
-        msg: "Check_Log completed. Proceeding to Task 2."
-
-    - name: Step 2 - Execute Notify Task (Only if Task 1 Succeeded)
-      shell: echo "Running Notify"
-      when: check_log_result.rc == 0
-      register: Notify_result
-
-    - name: Notify on Task 2 Completion
-      debug:
-        msg: "Task 2 completed. Proceeding to Task 3."
-      when: Notify_result.rc == 0
+    - vars/main.yml
