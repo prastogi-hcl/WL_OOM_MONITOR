@@ -1,7 +1,7 @@
 ---
-- name: Check WebLogic Logs for OOM
-  hosts: localhost
-  tasks: 
+ - name: Check WebLogic Logs for OOM
+   hosts: localhost
+   tasks: 
     - name: Show Success Message
       debug: 
          msg: "Check Log Completed Successfully.Please process notify"
