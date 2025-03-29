@@ -1,3 +1,7 @@
+- name: Wait before next task
+  ansible.builtin.pause:
+     seconds: 10
+
 - name: Read oom_errors from File
   slurp:
     src: "/tmp/oom_errors.txt"
