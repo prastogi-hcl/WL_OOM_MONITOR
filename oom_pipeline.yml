@@ -19,14 +19,12 @@
       ansible.builtin.pause:
         seconds: 10
 		
-		
     - name: Create Incident
       import_tasks: create_incident.yml
 
     - name: Wait before next task
       ansible.builtin.pause:
         seconds: 10
-
 		
     - name: Capture HeapDump on OOM
       import_tasks: capture_heapdump.yml
@@ -42,7 +40,6 @@
       ansible.builtin.pause:
         seconds: 10
 		
-		
     - name: Check OOM Reoccurrence
       import_tasks: check_oom_reoccurence.yml
 
@@ -56,7 +53,6 @@
     - name: Wait before next task
       ansible.builtin.pause:
         seconds: 10
-
 
     - name: Close Incident
       import_tasks: close_incident.yml
