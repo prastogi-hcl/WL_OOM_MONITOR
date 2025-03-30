@@ -1,6 +1,16 @@
+- name: Read latest_log from File
+  slurp:
+    src: "/tmp/latest_log_file.txt"
+  register: latest_log_file
+
+- name: Use oom_errors Path
+  debug:
+    msg: "latest log Path: {{ latest_log_file.content | b64decode }}"
+
+
 An OutOfMemoryError was detected in WebLogic logs.
 
-Log file: {{ latest_log_file.stdout }}
+Log file: {{ latest_log_file.content }}
 
 Error details:
 {{ oom_errors.stdout }}
