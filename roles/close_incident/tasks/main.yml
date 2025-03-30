@@ -34,9 +34,10 @@
 
 - name: Close the ServiceNow Incident
   servicenow.itsm.incident:
-    host: "{{ servicenow_instance }}"  # Directly define host
-    username: "{{ servicenow_user }}"
-    password: "{{ servicenow_password }}"
+    instance:
+       host: "{{ servicenow_instance }}"
+       username: "{{ servicenow_user }}"
+       password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"  # Use sys_id instead of number
     state: "Closed"
     close_code: "Solved (Permanently)"
