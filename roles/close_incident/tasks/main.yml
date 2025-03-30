@@ -69,7 +69,7 @@
     to: "{{ email_recipient }}"
     subject: "WebLogic OutOfMemoryError Alert"
     body: "ServiceNow Incident {{ incident_number }} has been successfully closed."
-  when: incident_closure is succeeded
+ # when: incident_closure is succeeded
   register: notification_status
 
 - name: Debug notification status
