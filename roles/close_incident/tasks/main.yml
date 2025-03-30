@@ -34,9 +34,10 @@
 
 - name: Resolve the ServiceNow Incident
   servicenow.itsm.incident:
-    host: "{{ servicenow_instance }}"
-    username: "{{ servicenow_user }}"
-    password: "{{ servicenow_password }}"
+    instance:
+       host: "{{ servicenow_instance }}"
+       username: "{{ servicenow_user }}"
+       password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
     state: "Resolved"
     resolution_code: "Solved (Permanently)"
@@ -44,10 +45,11 @@
   register: resolve_incident
 
 - name: Close the ServiceNow Incident
-  servicenow.itsm.incident:
-    host: "{{ servicenow_instance }}"
-    username: "{{ servicenow_user }}"
-    password: "{{ servicenow_password }}"
+   servicenow.itsm.incident:
+     instance:
+       host: "{{ servicenow_instance }}"
+       username: "{{ servicenow_user }}"
+       password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
     state: "Closed"
     close_code: "Solved (Permanently)"
