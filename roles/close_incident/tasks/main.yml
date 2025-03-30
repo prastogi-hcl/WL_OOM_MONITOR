@@ -18,7 +18,7 @@
 
 - name: Get Incident sys_id from ServiceNow
   uri:
-    url: "https://{{ servicenow_instance }}/api/now/table/incident?sysparm_query=number={{ incident_number }}"
+    url: "{{ servicenow_instance }}/api/now/table/incident?sysparm_query=number={{ incident_number }}"
     method: GET
     user: "{{ servicenow_user }}"
     password: "{{ servicenow_password }}"
