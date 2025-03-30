@@ -1,6 +1,6 @@
 - name: Wait before next task
   ansible.builtin.pause:
-    seconds: 200
+    seconds: 10
 
 - name: Read Incident Number from File
   slurp:
@@ -16,14 +16,29 @@
      msg: "No incident number found. Exiting playbook."
   when: incident_number is not defined or incident_number | length == 0
 
+- name: Get Incident sys_id from ServiceNow
+  uri:
+    url: "https://{{ servicenow_instance }}/api/now/table/incident?sysparm_query=number={{ incident_number }}"
+    method: GET
+    user: "{{ servicenow_user }}"
+    password: "{{ servicenow_password }}"
+    headers:
+      Accept: "application/json"
+    return_content: yes
+  register: incident_data
+
+- name: Set sys_id as fact
+  set_fact:
+    incident_sys_id: "{{ incident_data.json.result[0].sys_id }}"
+
+
 - name: Close the ServiceNow Incident
   servicenow.itsm.incident:
-    instance:
-      host: "{{ servicenow_instance }}"
-      username: "{{ servicenow_user }}"
-      password: "{{ servicenow_password }}"
-      sys_id: "{{ incident_number }}"
-    state: "closed"
+    host: "{{ servicenow_instance }}"  # Directly define host
+    username: "{{ servicenow_user }}"
+    password: "{{ servicenow_password }}"
+    sys_id: "{{ incident_sys_id }}"  # Use sys_id instead of number
+    state: "Closed"
     close_code: "Solved (Permanently)"
     close_notes: "Issue resolved. WebLogic is running fine now."
   register: incident_closure
