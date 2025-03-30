@@ -8,8 +8,8 @@
 
 - name: Use oom_errors Path
   debug:
-    msg: "oom_errors Path: {{ oom_errors_file.content | b64decode }}"	
-	
+    msg: "oom_errors Path: {{ oom_errors_file.content | b64decode }}"
+    
 - name: Read latest_log from File
   slurp:
     src: "/tmp/latest_log_file.txt"
