@@ -22,7 +22,7 @@
       host: "{{ servicenow_instance }}"
       username: "{{ servicenow_user }}"
       password: "{{ servicenow_password }}"
-      number: "{{ incident_number }}"
+      sys_id: "{{ incident_number }}"
     state: "closed"
     close_code: "Solved (Permanently)"
     close_notes: "Issue resolved. WebLogic is running fine now."
