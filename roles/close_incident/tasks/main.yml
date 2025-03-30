@@ -40,7 +40,6 @@
        password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
     state: "Resolved"
-    resolution_code: "Solved (Permanently)"
     close_notes: "Issue resolved. WebLogic is running fine now."
   register: resolve_incident
 
@@ -52,7 +51,6 @@
        password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
     state: "Closed"
-    close_code: "Solved (Permanently)"
     close_notes: "Closing after resolution confirmation."
   when: resolve_incident is succeeded
   register: close_incident
