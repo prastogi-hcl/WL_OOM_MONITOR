@@ -27,8 +27,7 @@
     password: "{{ smtp_pass }}"
     to: "{{ email_recipient }}"
     subject: "WebLogic OutOfMemoryError Alert"
-    body: "{{ lookup('template', 'email_template.j2') }}"
-   # body: "OutOfMemoryError found in logs. System Health Not OK"
+    body: "OutOfMemoryError found in logs. System Health Not OK"
   when: oom_errors_file.content | length > 0
 
 - name: Send System Health OK notification if no OOM is found
