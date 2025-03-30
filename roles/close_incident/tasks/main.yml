@@ -32,17 +32,29 @@
     incident_sys_id: "{{ incident_data.json.result[0].sys_id }}"
 
 
+- name: Resolve the ServiceNow Incident
+  servicenow.itsm.incident:
+    host: "{{ servicenow_instance }}"
+    username: "{{ servicenow_user }}"
+    password: "{{ servicenow_password }}"
+    sys_id: "{{ incident_sys_id }}"
+    state: "Resolved"
+    resolution_code: "Solved (Permanently)"
+    close_notes: "Issue resolved. WebLogic is running fine now."
+  register: resolve_incident
+
 - name: Close the ServiceNow Incident
   servicenow.itsm.incident:
-    instance:
-       host: "{{ servicenow_instance }}"
-       username: "{{ servicenow_user }}"
-       password: "{{ servicenow_password }}"
-    sys_id: "{{ incident_sys_id }}"  # Use sys_id instead of number
+    host: "{{ servicenow_instance }}"
+    username: "{{ servicenow_user }}"
+    password: "{{ servicenow_password }}"
+    sys_id: "{{ incident_sys_id }}"
     state: "Closed"
     close_code: "Solved (Permanently)"
-    close_notes: "Issue resolved. WebLogic is running fine now."
-  register: incident_closure
+    close_notes: "Closing after resolution confirmation."
+  when: resolve_incident is succeeded
+  register: close_incident
+
 
 - name: Display Incident Closure Status
   debug:
