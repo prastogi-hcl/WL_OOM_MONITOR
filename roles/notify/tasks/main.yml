@@ -8,8 +8,7 @@
 
 - name: Use oom_errors Path
   debug:
-    msg: "oom_errors Path: {{ oom_errors_file.content | b64decode }}"
-	
+    msg: "oom_errors Path: {{ oom_errors_file.content | b64decode }}"	
 	
 - name: Read latest_log from File
   slurp:
@@ -28,7 +27,8 @@
     password: "{{ smtp_pass }}"
     to: "{{ email_recipient }}"
     subject: "WebLogic OutOfMemoryError Alert"
-    body: "OutOfMemoryError found in logs. System Health Not OK"
+    body: "{{ lookup('template', 'email_template.j2') }}"
+   # body: "OutOfMemoryError found in logs. System Health Not OK"
   when: oom_errors_file.content | length > 0
 
 - name: Send System Health OK notification if no OOM is found
