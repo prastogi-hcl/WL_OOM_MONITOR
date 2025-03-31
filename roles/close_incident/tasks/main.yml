@@ -1,5 +1,5 @@
 - name: Wait before next task
-   ansible.builtin.pause:
+  ansible.builtin.pause:
     seconds: 200
 
 - name: Read Incident Number from File
