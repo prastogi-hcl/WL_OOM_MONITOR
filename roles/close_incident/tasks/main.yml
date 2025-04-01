@@ -31,15 +31,6 @@
   set_fact:
     incident_sys_id: "{{ incident_data.json.result[0].sys_id }}"
 
-- name: Resolve the ServiceNow Incident
-  servicenow.itsm.problem:
-    instance:
-       host: "{{ servicenow_instance }}"
-       username: "{{ servicenow_user }}"
-       password: "{{ servicenow_password }}"
-    sys_id: "{{ incident_sys_id }}"
-    close_notes: "Issue resolved. WebLogic is running fine now."
-  register: resolve_incident
 
 - name: Close the ServiceNow Incident
   servicenow.itsm.incident:
@@ -51,7 +42,7 @@
     #state: "Closed"
     #close_code: "Solved (Permanently)"
     close_notes: "Auto-closure of Incident after performing workaround.Please investigate further"
-  when: resolve_incident is succeeded
+ # when: resolve_incident is succeeded
   register: close_incident
 
 
