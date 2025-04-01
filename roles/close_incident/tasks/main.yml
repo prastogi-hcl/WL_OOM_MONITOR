@@ -42,7 +42,7 @@
     state: "Closed"
     close_code: "Solved"
     close_notes: "Closing after resolution confirmation."
-  when: resolve_incident is succeeded
+  #when: resolve_incident is succeeded
   register: close_incident
 
 
