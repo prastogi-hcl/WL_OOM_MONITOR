@@ -1,4 +1,3 @@
-
 - name: Wait before next task
   ansible.builtin.pause:
     seconds: 2
@@ -39,8 +38,8 @@
        username: "{{ servicenow_user }}"
        password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
-    #state: "Closed"
-    #close_code: "Solved (Permanently)"
+    state: "Closed"
+    close_code: "Solved (Permanently)"
     close_notes: "Closing after resolution confirmation."
   #when: resolve_incident is succeeded
   register: close_incident
