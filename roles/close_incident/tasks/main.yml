@@ -34,13 +34,14 @@
 
 
 - name: Resolve the ServiceNow Incident
-  servicenow.itsm.incident:
+  servicenow.itsm.problem:
     instance:
        host: "{{ servicenow_instance }}"
        username: "{{ servicenow_user }}"
        password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
     state: "Resolved"
+    resolution_code: "Out of memory resolved"
     close_notes: "Issue resolved. WebLogic is running fine now."
   register: resolve_incident
 
