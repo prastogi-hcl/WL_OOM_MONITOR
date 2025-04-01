@@ -38,9 +38,9 @@
        username: "{{ servicenow_user }}"
        password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
-    state: "Closed"
-    close_code: "Solved (Permanently)"
-    close_notes: "Closing after resolution confirmation."
+    #state: "Closed"
+    #close_code: "Solved (Permanently)"
+    close_notes: "Auto-closure of Incident after performing workaround.Please investigate further"
   #when: resolve_incident is succeeded
   register: close_incident
 
