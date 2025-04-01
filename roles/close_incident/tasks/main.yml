@@ -41,7 +41,7 @@
        password: "{{ servicenow_password }}"
     sys_id: "{{ incident_sys_id }}"
     state: "Resolved"
-    resolution_code: "Out of memory resolved"
+    resolution_code: "fix_applied"
     close_notes: "Issue resolved. WebLogic is running fine now."
   register: resolve_incident
 
